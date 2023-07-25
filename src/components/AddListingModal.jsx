@@ -1,50 +1,84 @@
 import { useEffect, useState } from "react";
 
-export default function AddListingModal({ setShowModal }) {
+export default function AddListingModal({ setShowModal, setCarGrid }) {
   const [makeList, setMakeList] = useState([]);
   const [modelList, setModelList] = useState([]);
-  const [selectedMake, setSelectedMake] = useState("")
-  const [selectedModel, setSelectedModel] = useState("")
-  const [selectedTransmission, setSelectedTransmission] = useState("")
+  const [selectedMake, setSelectedMake] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  const [selectedTransmission, setSelectedTransmission] = useState("");
+  const [year, setYear] = useState("");
+  const [price, setPrice] = useState("");
+  const [mileage, setMileage] = useState("");
+  const [url, setUrl] = useState("");
 
-  function handleSelectedMake(e) {
-    const selectedMakeValue = e.target.value
-    setSelectedMake(selectedMakeValue)
+  const formatUrl = () => {
+    const newUrl = url.split("?")[0];
+    setUrl(newUrl);
+  };
 
-    fetch(`http://127.0.0.1:4000/getmodels/${selectedMakeValue}`)
-      .then(res => res.json())
+   // Fetch makes
+   useEffect(() => {
+    fetch(`http://127.0.0.1:4000/getmakes/`)
+      .then((res) => res.json())
       .then((data) => {
-        setModelList(data)
+        setMakeList(data);
         console.log("makeList:", data);
       })
-      .catch(alert)
+      .catch(alert);
+  }, []);
+
+  // Fetch models given make
+  function handleSelectedMake(e) {
+    const selectedMakeValue = e.target.value;
+    setSelectedMake(selectedMakeValue);
+
+    fetch(`http://127.0.0.1:4000/getmodels/${selectedMakeValue}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setModelList(data);
+        console.log("makeList:", data);
+      })
+      .catch(alert);
   };
 
   function handleSelectedModel(e) {
-    setSelectedModel(e.target.value)
+    const selectedModelValue = e.target.value;
+    setSelectedModel(selectedModelValue);
   };
 
   function handleSelectedTransmission(e) {
-    setSelectedTransmission(e.target.value)
+    const selectedTransmissionValue = e.target.value;
+    setSelectedTransmission(selectedTransmissionValue);
   };
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formattedUrl = url.split("?")[0]
 
-  useEffect(() => {
-    fetch(`http://127.0.0.1:4000/getmakes/`)
+    const newListing = {                     
+      make: selectedMake,
+      model: selectedModel,
+      transmission: selectedTransmission,
+      year: year,
+      price: price,
+      mileage: mileage,
+      url: formattedUrl,
+    };
+
+    fetch(`http://127.0.0.1:4000/listings/newlisting`, {
+      method: "POST",
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify(newListing),
+    })
       .then(res => res.json())
       .then((data) => {
-        setMakeList(data)
-        console.log("makeList:", data);
+        setCarGrid(data);
+        setShowModal(false);
       })
       .catch(alert)
-  }, []);
-
-
-  console.log(selectedTransmission)
-  console.log(selectedMake)
-  console.log(selectedModel)
-
-  return(
+  };
+ 
+  return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative w-full my-6 mx-auto max-w-3xl">
@@ -55,7 +89,10 @@ export default function AddListingModal({ setShowModal }) {
               <h3 className="text-3xl text-gray-900 font-semibold">
                 New Listing
               </h3>
-              <button onClick={() => setShowModal(false)} className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none">
+              <button
+                onClick={() => setShowModal(false)}
+                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+              >
                 <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                   ×
                 </span>
@@ -64,45 +101,103 @@ export default function AddListingModal({ setShowModal }) {
             {/*body*/}
             <div className="relative p-6 flex-auto text-gray-900">
               <form>
-                <div> {/* Make selector */}
-                  {makeList.length > 0 ? 
-                    <select onChange={handleSelectedMake} name="make" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option value="make" selected disabled>Make</option>
+                <div>
+                  {" "}
+                  {/* Make selector */}
+                  {makeList.length > 0 ? (
+                    <select
+                      value={selectedMake}
+                      onChange={handleSelectedMake}
+                      name="make"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option value="" selected disabled>
+                        Make
+                      </option>
                       {makeList.map((make) => (
-                        <option  key={make.index} value={make}>
+                        <option key={make.index} value={make}>
                           {make}
                         </option>
                       ))}
                     </select>
-                    : <p>Loading...</p>
-                 }
+                  ) : (
+                    <p>Loading...</p>
+                  )}
                 </div>
-                <div> {/* Model selector */}
-                  {modelList.length > 0 ?
+                <div>
+                  {" "}
+                  {/* Model selector */}
+                  {modelList.length > 0 ? (
                     <select
+                      value={selectedModel}
                       onChange={handleSelectedModel}
                       name="model"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option value="model" defaultValue>Model</option>
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option value="" selected disabled>
+                        Model
+                      </option>
                       {modelList.map((model) => (
                         <option key={model.index} value={model}>
                           {model}
                         </option>
                       ))}
                     </select>
-                    : <p>Model: Select a make first.</p>
-                  }
+                  ) : (
+                    <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      Model: Select a make first.
+                    </p>
+                  )}
                 </div>
-                <input placeholder="Year" name="year" type="number" maxLength={4} minLength={4} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                <input placeholder="Price" name="price" type="number" maxLength={4} minLength={4} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                <input placeholder="Mileage" name="mileage" type="number" maxLength={4} minLength={4} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                <input placeholder="Listing URL" name="url" type="string" maxLength={4} minLength={4} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                 <select
-                  onChange={handleSelectedTransmission}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" >
-                  <option value="transmission" defaultValue>Transmission</option>
+                  value={selectedTransmission}
+                  onChange={handleSelectedTransmission}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option value="" selected disabled>
+                    Transmission
+                  </option>
                   <option value="manual">Manual</option>
                   <option value="automatic">Automatic</option>
                 </select>
+                <input
+                  onChange={(e) => setYear(e.target.value)}
+                  value={year}
+                  placeholder="Year"
+                  name="year"
+                  type="number"
+                  maxLength={4}
+                  minLength={4}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                <input
+                  onChange={(e) => setPrice(e.target.value)}
+                  value={price}
+                  placeholder="Price"
+                  name="price"
+                  type="number"
+                  maxLength={4}
+                  minLength={4}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                <input
+                  onChange={(e) => setMileage(e.target.value)}
+                  value={mileage}
+                  placeholder="Mileage"
+                  name="mileage"
+                  type="number"
+                  maxLength={4}
+                  minLength={4}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+                <input
+                  onChange={(e) => setUrl(e.target.value)}
+                  value={url}
+                  placeholder="Listing URL"
+                  name="url"
+                  type="string"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
               </form>
             </div>
 
@@ -117,8 +212,8 @@ export default function AddListingModal({ setShowModal }) {
               </button>
               <button
                 className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                onClick={() => setShowModal(false)}
+                type="submit"
+                onClick={handleSubmit}
               >
                 Submit
               </button>
@@ -128,5 +223,5 @@ export default function AddListingModal({ setShowModal }) {
       </div>
       <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
     </>
-  )
+  );
 }

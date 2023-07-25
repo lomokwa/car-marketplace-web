@@ -3,7 +3,7 @@
 import { useState } from "react";
 import AddListingModal from "./AddListingModal";
 
-export default function Navbar() {
+export default function Navbar({ setCarGrid }) {
   const [showModal, setShowModal] = useState(false)
 
   return (
@@ -27,7 +27,7 @@ export default function Navbar() {
           >
             Add New Listing
           </button>
-          {showModal ? <AddListingModal setShowModal={setShowModal}/> : null}
+          {showModal ? <AddListingModal setShowModal={setShowModal} setCarGrid={setCarGrid}/> : null}
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
