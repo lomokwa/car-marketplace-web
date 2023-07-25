@@ -11,11 +11,6 @@ export default function AddListingModal({ setShowModal, setCarGrid }) {
   const [mileage, setMileage] = useState("");
   const [url, setUrl] = useState("");
 
-  const formatUrl = () => {
-    const newUrl = url.split("?")[0];
-    setUrl(newUrl);
-  };
-
    // Fetch makes
    useEffect(() => {
     fetch(`http://127.0.0.1:4000/getmakes/`)
@@ -54,14 +49,17 @@ export default function AddListingModal({ setShowModal, setCarGrid }) {
   function handleSubmit(e) {
     e.preventDefault();
     const formattedUrl = url.split("?")[0]
+    const yearAsNumber = parseInt(year, 10);
+    const priceAsNumber = parseFloat(price);
+    const mileageAsNumber = parseInt(mileage, 10);
 
     const newListing = {                     
       make: selectedMake,
       model: selectedModel,
       transmission: selectedTransmission,
-      year: year,
-      price: price,
-      mileage: mileage,
+      year: yearAsNumber,
+      price: priceAsNumber,
+      mileage: mileageAsNumber,
       url: formattedUrl,
     };
 
