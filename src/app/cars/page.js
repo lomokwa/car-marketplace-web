@@ -6,14 +6,22 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [carGrid, setCarGrid] = useState([])
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:4000/listings")
+    fetch("https://car-marketplace-api.web.app/listings")
       .then(res => res.json())
       .then((data) => {
         setCarGrid(data)
       })
-      .catch(alert)
+      .catch((error) => {
+        console.error("Failed to fetch:", error);
+        setError("Failed to get listings. Please try again.")
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
   
   return (
