@@ -1,11 +1,17 @@
 "use client"
 
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext, auth } from "@/context/AuthContext";
 
 export default function LoginFormModal({ setShowLoginModal }) {
   const { handleLogin } = useContext(AuthContext)
+
+  const [formData, setFormData] = useState({});
+
+  const updateForm = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value})
+  };
 
   const handleGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -20,8 +26,9 @@ export default function LoginFormModal({ setShowLoginModal }) {
 
   const handleLoginWithEmailAndPassword = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+
+    const { email, password } = formData;
+
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         handleLogin(result)
@@ -60,7 +67,7 @@ export default function LoginFormModal({ setShowLoginModal }) {
 
                 <div className="p-2">
                   <input
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={updateForm}
                     placeholder="Email"
                     name="email"
                     type="email"
@@ -70,7 +77,7 @@ export default function LoginFormModal({ setShowLoginModal }) {
 
                 <div className="p-2">
                   <input
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={updateForm}
                     placeholder="Password"
                     name="password"
                     type="password"

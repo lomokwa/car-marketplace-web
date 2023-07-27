@@ -3,7 +3,6 @@
 import { useState, useContext } from "react";
 import AddListingModal from "./AddListingModal";
 import { AuthContext } from "@/context/AuthContext";
-import LoginForm from "@/components/LoginFormModal";
 import LoginFormModal from "@/components/LoginFormModal";
 
 export default function Navbar({ setCarGrid }) {
@@ -47,11 +46,14 @@ export default function Navbar({ setCarGrid }) {
           <div className>
             <button
               type="button"
-              onClick={() => setShowListingModal(true)}
+              onClick={() => {
+                !user ? alert("You must be logged in to add a listing.")
+                      : setShowListingModal(true)
+              }}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Add New Listing
             </button>
-          </div>
+          </div> 
           {showListingModal ? <AddListingModal setShowListingModal={setShowListingModal} setCarGrid={setCarGrid}/> : null}
           <button
             data-collapse-toggle="navbar-cta"
