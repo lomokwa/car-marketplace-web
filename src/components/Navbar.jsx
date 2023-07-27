@@ -24,26 +24,9 @@ export default function Navbar({ setCarGrid }) {
             Car Marketplace
           </span>
         </a>
+
         <div className="flex md:order-2">
-          {!user ?
-            <div className="mr-4">
-              <button 
-              onClick={() => (setShowLogingModal(true))}
-              className="text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800">
-                Log in
-              </button>
-            </div>
-            :
-            <div className="mr-4">
-              <button 
-              onClick={() => handleLogout()}
-              className="text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800">
-                Log out
-              </button>
-            </div>
-          }
-          {showLoginModal ? <LoginFormModal setShowLoginModal={setShowLogingModal} /> : null}
-          <div className>
+          <div className="mr-4">
             <button
               type="button"
               onClick={() => {
@@ -55,31 +38,50 @@ export default function Navbar({ setCarGrid }) {
             </button>
           </div> 
           {showListingModal ? <AddListingModal setShowListingModal={setShowListingModal} setCarGrid={setCarGrid}/> : null}
+
+          {!user ?
+            <div >
+              <button
+              onClick={() => (setShowLogingModal(true))}
+              className="text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800">
+                Log in
+              </button>
+            </div>
+            :
+            <div >
+              <button 
+              onClick={() => handleLogout()}
+              className="text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800">
+                Log out
+              </button>
+            </div>
+          }
+          {showLoginModal ? <LoginFormModal setShowLoginModal={setShowLogingModal} /> : null}
+
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-cta"
-            aria-expanded="false"
-          >
+            aria-expanded="false" >
             <span className="sr-only">Open main menu</span>
             <svg
               className="w-5 h-5"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
-              viewBox="0 0 17 14"
-            >
+              viewBox="0 0 17 14">
+
               <path
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
+                d="M1 1h15M1 7h15M1 13h15" />
             </svg>
           </button>
         </div>
+        
         <div
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-cta"
