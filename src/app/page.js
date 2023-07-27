@@ -7,7 +7,7 @@ export default function Home() {
         >
           <img
             alt="Night"
-            src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            src="/images/carmeet3.jpg"
             className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
 
@@ -31,9 +31,6 @@ export default function Home() {
               Welcome to Car Marketplace 
             </h2>
 
-            <p className="mt-4 leading-relaxed text-xl text-white/90">
-              Check our <a href="/cars" className="text-amber-500 hover:text-amber-400">listings!</a>
-            </p>
           </div>
         </section>
 
@@ -41,7 +38,7 @@ export default function Home() {
           className="flex items-center justify-start px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
           <div className="max-w-xl lg:max-w-3xl">
                 <h1 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">We love cars.</h1>
-                <h2 className="py-5">[Car marketplace] is a user-curated marketplace built for enthusiasts, by enthusiasts. <br />
+                <h2 className="py-5">[Car marketplace name] is a user-curated marketplace built for enthusiasts, by enthusiasts. <br />
                 Let us help you find your dream car with our handpicked selection, tailored by passionate automobile lovers like you.
                 </h2>
                 <a href="/cars" className="text-amber-500 text-xl hover:text-amber-400" >Check out our listings!</a>
@@ -49,5 +46,5 @@ export default function Home() {
         </main>
       </div>
     </section>
-  )
-}
+  );
+};

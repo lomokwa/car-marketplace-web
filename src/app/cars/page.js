@@ -1,6 +1,6 @@
 "use client"
 
-import CarGrid from "@/components/CarGrid"
+import CarGrid from "@/app/cars/CarGrid"
 import Navbar from "@/components/Navbar"
 import { useState, useEffect } from "react";
 

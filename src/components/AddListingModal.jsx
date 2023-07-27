@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function AddListingModal({ setShowModal, setCarGrid }) {
+export default function AddListingModal({ setShowListingModal, setCarGrid }) {
   const [makeList, setMakeList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [selectedMake, setSelectedMake] = useState("");
@@ -84,7 +84,7 @@ export default function AddListingModal({ setShowModal, setCarGrid }) {
       .then(res => res.json())
       .then((data) => {
         setCarGrid(data);
-        setShowModal(false);
+        setShowListingModal(false);
       })
       .catch(alert)
   };
@@ -101,7 +101,7 @@ export default function AddListingModal({ setShowModal, setCarGrid }) {
                 New Listing
               </h3>
               <button
-                onClick={() => setShowModal(false)}
+                onClick={() => setShowListingModal(false)}
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
               >
                 <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
@@ -162,6 +162,7 @@ export default function AddListingModal({ setShowModal, setCarGrid }) {
                 </div>
                 <div className="p-2">
                   <select
+                    name="transmission"
                     value={selectedTransmission}
                     onChange={handleSelectedTransmission}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -227,7 +228,7 @@ export default function AddListingModal({ setShowModal, setCarGrid }) {
               <button
                 className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
-                onClick={() => setShowModal(false)}
+                onClick={() => setShowListingModal(false)}
               >
                 Close
               </button>
