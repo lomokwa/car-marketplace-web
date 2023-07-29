@@ -11,8 +11,10 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
   const [price, setPrice] = useState("");
   const [mileage, setMileage] = useState("");
   const [url, setUrl] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState
 
-   // Fetch makes
+   // Fetch makes 
    useEffect(() => {
     fetch(`https://car-marketplace-api.web.app/getmakes/`)
       .then((res) => res.json())
@@ -61,7 +63,8 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
       !yearAsNumber ||
       !priceAsNumber ||
       !mileageAsNumber ||
-      !formattedUrl
+      !formattedUrl ||
+      !image
     ) {
       alert("Please fill in all fields.");
       return;
@@ -74,7 +77,9 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
       year: yearAsNumber,
       price: priceAsNumber,
       mileage: mileageAsNumber,
+      description: description,
       url: formattedUrl,
+      image: image,
     };
 
     fetch(`https://car-marketplace-api.web.app/listings/newlisting`, {
@@ -171,8 +176,8 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
                     <option value="" selected disabled>
                       Transmission
                     </option>
-                    <option value="manual">Manual</option>
-                    <option value="automatic">Automatic</option>
+                    <option value="Manual">Manual</option>
+                    <option value="Automatic">Automatic</option>
                   </select>
                 </div>
                 <div className="p-2">
@@ -213,10 +218,30 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
                 </div>
                 <div className="p-2">
                   <input
+                    onChange={(e) => setListingDescription(e.target.value)}
+                    value={description}
+                    placeholder="Description"
+                    name="description"
+                    type="string"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
+                <div className="p-2">
+                  <input
                     onChange={(e) => setUrl(e.target.value)}
                     value={url}
                     placeholder="Listing URL"
                     name="url"
+                    type="string"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
+                <div className="p-2">
+                  <input
+                    onChange={(e) => setImage(e.target.value)}
+                    value={image}
+                    placeholder="Image URL"
+                    name="image"
                     type="string"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
