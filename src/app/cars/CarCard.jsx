@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import ListingPageModal from "../listing/ListingPageModal";
+import ListingPageModal from "../../components/ListingPageModal";
 
 export default function CarCard({ car }) {
   const [showListingPageModal, setShowListingPageModal] = useState(false);
@@ -8,6 +8,7 @@ export default function CarCard({ car }) {
   const handleClick = () => {
     setShowListingPageModal(true)
   }
+  
   return(
     <>
       {showListingPageModal && <ListingPageModal car={car} setShowListingPageModal={setShowListingPageModal} />} 

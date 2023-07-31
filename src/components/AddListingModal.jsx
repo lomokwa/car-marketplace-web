@@ -1,7 +1,19 @@
+"use client"
+
+import { initializeApp } from "firebase/app";;
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState } from "react";
 
-export default function AddListingModal({ setShowListingModal, setCarGrid }) {
+const firebaseConfig = {
+  apiKey: "AIzaSyDJ1hOCj8mrw5meGQFZOZeV46G_8WxVusI",
+  authDomain: "car-marketplace-web-lmkw.firebaseapp.com",
+  projectId: "car-marketplace-web-lmkw",
+  storageBucket: "car-marketplace-web-lmkw.appspot.com",
+  messagingSenderId: "1042669946372",
+  appId: "1:1042669946372:web:6eacf15519a61ec8fcd751"
+};
 
+export default function AddListingModal({ setShowListingModal, setCarGrid }) {
   const [makeList, setMakeList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [selectedMake, setSelectedMake] = useState("");
@@ -11,8 +23,33 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
   const [price, setPrice] = useState("");
   const [mileage, setMileage] = useState("");
   const [url, setUrl] = useState("");
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [description, setDescription] = useState
+
+
+
+
+  const [file, setFile] = useState();
+
+  const handleFile = (e) => {
+    console.log(e.target.files[0]);
+    setFile(e.target.files[0]);
+
+    const app = initializeApp(firebaseConfig); // Connect to project
+    const storage = getStorage(app); // Connect to storage
+
+    const filename = e.target.files[0].name;
+    const imageRef = ref(storage, `listings/${filename}`);
+
+    const imageUrl = `https://firebasestorage.googleapis.com/v0/b/car-marketplace-web-lmkw.appspot.com/o/listings%2F${filename}?alt=media`;
+    
+    uploadBytes(imageRef, e.target.files[0])
+      .then(() => setImage(imageUrl))
+      .catch(alert);
+  };
+
+
+
 
    // Fetch makes 
    useEffect(() => {
@@ -92,7 +129,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
         setCarGrid(data);
         setShowListingModal(false);
       })
-      .catch(alert)
+      .catch(alert);
   };
  
   return (
@@ -119,7 +156,6 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
             <div className="relative p-6 flex-auto text-gray-900">
               <form>
                 <div className="p-2">
-                  {" "}
                   {/* Make selector */}
                   {makeList.length > 0 ? (
                     <select
@@ -128,7 +164,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
                       name="make"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     >
-                      <option value="" selected disabled>
+                      <option value="" selected disabled className="opacity-50">
                         Make
                       </option>
                       {makeList.map((make) => (
@@ -138,7 +174,9 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
                       ))}
                     </select>
                   ) : (
-                    <p>Loading...</p>
+                    <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      Loading Makes...
+                    </p>
                   )}
                 </div>
                 <div className="p-2">
@@ -217,16 +255,16 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
                   />
                 </div>
                 <div className="p-2">
-                  <input
-                    onChange={(e) => setListingDescription(e.target.value)}
+                  <textarea 
+                    onChange={(e) => setDescription(e.target.value)}
                     value={description}
-                    placeholder="Description"
-                    name="description"
-                    type="string"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="description" 
+                    placeholder="Description"   
+                    className="resize-none h-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                   />
                 </div>
                 <div className="p-2">
+                  
                   <input
                     onChange={(e) => setUrl(e.target.value)}
                     value={url}
@@ -237,12 +275,10 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
                   />
                 </div>
                 <div className="p-2">
-                  <input
-                    onChange={(e) => setImage(e.target.value)}
-                    value={image}
-                    placeholder="Image URL"
-                    name="image"
-                    type="string"
+                  <input 
+                    onChange={handleFile} 
+                    type='file' 
+                    accept='image/*' 
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                 </div>
@@ -272,4 +308,4 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
       <div className="opacity-70  fixed inset-0 z-40 bg-black"></div>
     </>
   );
-}
+};

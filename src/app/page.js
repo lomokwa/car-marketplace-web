@@ -34,14 +34,12 @@ export default function Home() {
           </div>
         </section>
 
-        <main
-          className="flex items-center justify-start px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+        <main className="flex items-center justify-start mx-8 my-8 sm:mx-12 lg:col-span-7 lg:mx-16 lg:my-12 xl:col-span-6">
           <div className="max-w-xl lg:max-w-3xl">
-                <h1 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">We love cars.</h1>
-                <h2 className="py-5">[Car marketplace name] is a user-curated marketplace built for enthusiasts, by enthusiasts. <br />
-                Let us help you find your dream car with our handpicked selection, tailored by passionate automobile lovers like you.
-                </h2>
-                <a href="/cars" className="text-amber-500 text-xl hover:text-amber-400" >Check out our listings!</a>
+                <h1 className="mt-6 text-xl font-bold text-white sm:text-3xl md:text-5xl">We love cars.</h1>
+                <h2 className="py-5 text-xl">[Car marketplace name] is a user-curated marketplace built for enthusiasts, by enthusiasts.</h2>
+                <h3 className="text-xl">Let us help you find your dream car with our handpicked selection, tailored by passionate automobile lovers like you.</h3>
+                <a href="/cars" className="flex justify-center mt-20 mx-52 text-2xl font-semibold p-3 rounded-lg bg-amber-500 text-l hover:bg-amber-600">Check our listings!</a>
           </div>
         </main>
       </div>
