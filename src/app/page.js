@@ -28,7 +28,7 @@ export default function Home() {
             </a>
 
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-              Welcome to Car Marketplace 
+              Welcome to Name
             </h2>
 
           </div>
