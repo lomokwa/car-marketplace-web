@@ -4,10 +4,12 @@ import { useState, useContext } from "react";
 import AddListingModal from "./AddListingModal";
 import { AuthContext } from "@/context/AuthContext";
 import LoginFormModal from "@/components/LoginFormModal";
+import SearchDropdown from "@/components/SearchDropdown";
 
-export default function Navbar({ setCarGrid }) {
+export default function Navbar({ setCarGrid, makeList, queryString, setQueryString }) {
   const [showListingModal, setShowListingModal] = useState(false)
   const [showLoginModal, setShowLogingModal] = useState(false)
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false)
 
   const { user, handleLogout } = useContext(AuthContext)
 
@@ -37,7 +39,7 @@ export default function Navbar({ setCarGrid }) {
                 Add New Listing
             </button>
           </div> 
-          {showListingModal ? <AddListingModal setShowListingModal={setShowListingModal} setCarGrid={setCarGrid}/> : null}
+          {showListingModal ? <AddListingModal setShowListingModal={setShowListingModal} setCarGrid={setCarGrid} makeList={makeList} /> : null}
 
           {!user ?
             <div >
@@ -97,8 +99,7 @@ export default function Navbar({ setCarGrid }) {
               </a>
             </li>
             <li>
-              <a
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              <a onClick={() => { showSearchDropdown ? setShowSearchDropdown(false) : setShowSearchDropdown(true) }} className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Search
               </a>
@@ -122,6 +123,7 @@ export default function Navbar({ setCarGrid }) {
           </ul>
         </div>
       </div>
+      {showSearchDropdown ? <SearchDropdown setCarGrid={setCarGrid} makeList={makeList} queryString={queryString} setQueryString={setQueryString} /> : null}
     </nav>
   );
 };

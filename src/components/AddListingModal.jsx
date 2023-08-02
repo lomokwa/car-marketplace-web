@@ -1,8 +1,9 @@
 "use client"
 
+import { AuthContext } from "@/context/AuthContext";
 import { initializeApp } from "firebase/app";;
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDJ1hOCj8mrw5meGQFZOZeV46G_8WxVusI",
@@ -13,11 +14,14 @@ const firebaseConfig = {
   appId: "1:1042669946372:web:6eacf15519a61ec8fcd751"
 };
 
-export default function AddListingModal({ setShowListingModal, setCarGrid }) {
-  const [makeList, setMakeList] = useState([]);
-  const [modelList, setModelList] = useState([]);
+export default function AddListingModal({ setShowListingModal, setCarGrid, makeList }) {
+  const { user } = useContext(AuthContext)
+
   const [selectedMake, setSelectedMake] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
+
+  const [modelList, setModelList] = useState([]);
+
   const [selectedTransmission, setSelectedTransmission] = useState("");
   const [year, setYear] = useState("");
   const [price, setPrice] = useState("");
@@ -25,9 +29,6 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-
-
-
 
   const [file, setFile] = useState();
 
@@ -47,20 +48,6 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
       .then(() => setImage(imageUrl))
       .catch(alert);
   };
-
-
-
-
-   // Fetch makes 
-   useEffect(() => {
-    fetch(`https://car-marketplace-api.web.app/getmakes/`)
-      .then((res) => res.json())
-      .then((data) => {
-        setMakeList(data);
-        console.log("makeList:", data);
-      })
-      .catch(alert);
-  }, []);
 
   // Fetch models given make
   function handleSelectedMake(e) {
@@ -107,7 +94,8 @@ export default function AddListingModal({ setShowListingModal, setCarGrid }) {
       return;
     };
 
-    const newListing = {                     
+    const newListing = {         
+      uid: user.uid,
       make: selectedMake,
       model: selectedModel,
       transmission: selectedTransmission,
