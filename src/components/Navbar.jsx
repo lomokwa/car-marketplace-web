@@ -23,11 +23,11 @@ export default function Navbar({ setCarGrid, makeList, queryString, setQueryStri
             alt="Flowbite Logo"
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Car Marketplace
+            Collector Car Hub
           </span>
         </a>
 
-        <div className="flex md:order-2">
+        <div className="flex md:order-2 mt-4 md:mt-0">
           <div className="mr-4">
             <button
               type="button"

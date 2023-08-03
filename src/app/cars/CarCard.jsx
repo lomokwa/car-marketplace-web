@@ -13,7 +13,7 @@ export default function CarCard({ car }) {
   return(
     <>
       {showListingPageModal && <ListingPageModal car={car} setShowListingPageModal={setShowListingPageModal} />} 
-        <div onClick={handleClick} className="lg:w-1/4 md:w-1/2 m-2 w-full cursor-pointer bg-gray-900 p-5 rounded-md">
+        <div onClick={handleClick} className="m-3 my-5 w-full md:w-[18%] cursor-pointer bg-gray-900 p-5 rounded-md">
           <div className="block relative h-48 rounded overflow-hidden">
             <img alt={`${car.make} ${car.model}`} className="object-cover object-center w-full h-full block" src={car.image} />
           </div>

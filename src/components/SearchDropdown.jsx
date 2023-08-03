@@ -28,7 +28,6 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
     const selectedMakeValue = e.target.value;
     setSelectedMake(selectedMakeValue)
 
-    if (selectedMakeValue != "") {
     fetch(`https://car-marketplace-api.web.app/getmodels/${selectedMakeValue}`)
       .then((res) => res.json())
       .then((data) => {
@@ -36,7 +35,6 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
       })
       .catch(alert);
       console.log(selectedMakeValue)
-    };
   };
 
   function makeQueryString() {
@@ -45,6 +43,10 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
       if(selectedModel) setQueryString(queryString += `model=${selectedModel}&`)
       if(selectedTransmission) setQueryString(queryString += `transmission=${selectedTransmission}&`)
     };
+
+  function handleReset() {
+    setQueryString("")
+  };
 
   return(
     <div className="flex gap-8 pb-5 justify-center">
@@ -123,8 +125,11 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
           </div>
         </div>
       </div>
-      <button onClick={makeQueryString}>
+      <button onClick={makeQueryString} className="hover:text-blue-500">
         Search
+      </button>
+      <button onClick={handleReset} className="hover:text-blue-500">
+        Reset
       </button>
     </div>
   )

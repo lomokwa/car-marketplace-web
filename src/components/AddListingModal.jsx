@@ -17,11 +17,10 @@ const firebaseConfig = {
 export default function AddListingModal({ setShowListingModal, setCarGrid, makeList }) {
   const { user } = useContext(AuthContext)
 
-  const [selectedMake, setSelectedMake] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
-
   const [modelList, setModelList] = useState([]);
 
+  const [selectedMake, setSelectedMake] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
   const [selectedTransmission, setSelectedTransmission] = useState("");
   const [year, setYear] = useState("");
   const [price, setPrice] = useState("");

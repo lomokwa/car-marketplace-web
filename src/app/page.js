@@ -28,7 +28,7 @@ export default function Home() {
             </a>
 
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-              Welcome to Name
+              Welcome to Collector Car Hub
             </h2>
 
           </div>
@@ -37,7 +37,7 @@ export default function Home() {
         <main className="flex items-center justify-start mx-8 my-8 sm:mx-12 lg:col-span-7 lg:mx-16 lg:my-12 xl:col-span-6">
           <div className="max-w-xl lg:max-w-3xl">
                 <h1 className="mt-6 text-xl font-bold text-white sm:text-3xl md:text-5xl">We love cars.</h1>
-                <h2 className="py-5 text-xl">[Car marketplace name] is a user-curated marketplace built for enthusiasts, by enthusiasts.</h2>
+                <h2 className="py-5 text-xl">Collector Car Hub is a user-curated marketplace built for enthusiasts, by enthusiasts.</h2>
                 <h3 className="text-xl">Let us help you find your dream car with our handpicked selection, tailored by passionate automobile lovers like you.</h3>
                 <a href="/cars" className="flex justify-center mt-20 mx-52 text-2xl font-semibold p-3 rounded-lg bg-amber-500 text-l hover:bg-amber-600">Check our listings!</a>
           </div>

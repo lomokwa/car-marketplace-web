@@ -2,7 +2,7 @@ export default function ListingPageModal ({car, setShowListingPageModal}) {
   return(
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none h-full w-full">
-        <section className="text-gray-200 body-font overflow-hidden bg-gray-900" >
+        <div className="text-gray-200 body-font overflow-hidden bg-gray-900 w-11/12 border border-red-500">
           <button
             className="top-0 left-0 ml-4 mt-4 text-gray-300 text-2xl bg-red-500 rounded-lg px-3 pb-1 hover:bg-red-600 focus:outline-none"
             onClick={() => setShowListingPageModal(false)}>
@@ -16,7 +16,7 @@ export default function ListingPageModal ({car, setShowListingPageModal}) {
                 <div className="flex mb-4">
                   <a className="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">Description</a>
                 </div>
-                <p className="leading-relaxed mb-4">{!car.description ? "No description available." : `"${car.description}"`}</p>
+                <p className="leading-relaxed mb-4 overflow-y-auto max-h-52">{!car.description ? "No description available." : `"${car.description}"`}</p>
                 <div className="flex border-t border-gray-200 py-2">
                   <span className="text-gray-300">Mileage:</span>
                   <span className="ml-auto text-gray-200">{car.mileage.toLocaleString()} Miles</span>
@@ -44,7 +44,7 @@ export default function ListingPageModal ({car, setShowListingPageModal}) {
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
       <div className="opacity-70  fixed inset-0 z-40 bg-black"></div>
    </>
