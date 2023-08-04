@@ -18,12 +18,12 @@ export default function Navbar({ setCarGrid, makeList, queryString, setQueryStri
       <div className="flex flex-wrap items-center justify-between mx-20 mt-0 mb-0 p-5">
         <a href="/" className="flex items-center">
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8 mr-3"
-            alt="Flowbite Logo"
+            src="../images/logo.png"
+            className="h-16 mr-3"
+            alt="Collector's Car Hub Logo"
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Collector Car Hub
+            Collector's Car Hub
           </span>
         </a>
 
@@ -102,22 +102,6 @@ export default function Navbar({ setCarGrid, makeList, queryString, setQueryStri
               <a onClick={() => { showSearchDropdown ? setShowSearchDropdown(false) : setShowSearchDropdown(true) }} className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Search
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Services
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Contact
               </a>
             </li>
           </ul>

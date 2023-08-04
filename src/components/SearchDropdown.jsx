@@ -59,8 +59,8 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
                 onChange={getModels}
                 name="make"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option value="" selected className="opacity-50">
-                    Make: Any
+                  <option value="" selected disabled className="opacity-50">
+                    Make
                   </option>
                   {makeList.map((make) => (
                     <option key={make.index} value={make}>
@@ -89,7 +89,7 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 <option value="" selected>
-                  Model: Any
+                  Model
                 </option>
                 {modelList.map((model) => (
                   <option key={model.index} value={model}>
@@ -116,7 +116,7 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
               onChange={handleSelectedTransmission}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
-              <option value="" selected disabled>
+              <option value="" selected>
                 Transmission: Any
               </option>
               <option value="Manual">Manual</option>
