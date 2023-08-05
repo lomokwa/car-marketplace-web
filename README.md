@@ -6,7 +6,7 @@ Collector's Car Hub is a user-curated car marketplace aggregator built for enthu
 ## Tech Stack
 Collector's Car Hub is a fullstack application built using MongoDB, Express, NextJS, NodeJS, and Tailwind CSS. 
 
-You can check the code for the API [**here**](https://github.com/lomokwa/car-marketplace-api).
+You can check the code for the API [**here**](https://github.com/lomokwa/car-marketplace-api-2.0).
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
