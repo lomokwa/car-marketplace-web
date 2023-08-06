@@ -45,7 +45,7 @@ export default function ListingPageModal ({ car, setShowListingPageModal }) {
   return(
     <>
       <div className="justify-center items-center flex overflow-x-hidden fixed inset-0 z-50 outline-none focus:outline-none h-full w-full ">
-        <section className="text-gray-200 bg-gray-900 body-font overflow-hidden border border-red-500">
+        <section className="text-gray-200 bg-gray-900 body-font overflow-hidden">
           <button
             className="top-0 left-0 ml-4 mt-4 text-gray-300 text-2xl bg-red-500 rounded-lg px-3 pb-1 hover:bg-red-600 focus:outline-none"
             onClick={() => setShowListingPageModal(false)}>
