@@ -30,11 +30,13 @@ export default function Home() {
     fetch(`https://car-marketplace-api.web.app/listings?${queryString}`)
       .then(res => res.json())
       .then((data) => {
-        setCarGrid(data)
+        setCarGrid(data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Failed to fetch:", error);
-        setError("Failed to get listings. Please try again.")
+        setError("Failed to get listings. Please try again.");
+        setLoading(false);
       })
   }, [queryString])
   
@@ -42,7 +44,7 @@ export default function Home() {
     <>
       <Navbar setCarGrid={setCarGrid} makeList={makeList} queryString={queryString} setQueryString={setQueryString} />
       <main className=" min-h-screen flex-col items-center justify-between bg-gray-950">
-        <CarGrid carGrid={carGrid}/>
+        <CarGrid carGrid={carGrid} loading={loading}/>
       </main>
     </>
   );
