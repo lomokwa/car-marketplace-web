@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <>
       <Navbar setCarGrid={setCarGrid} makeList={makeList} queryString={queryString} setQueryString={setQueryString} />
-      <main className=" min-h-screen flex-col items-center justify-between bg-gray-950">
+      <main className=" min-h-screen flex-col items-center justify-between bg-gray-200 dark:bg-gray-950">
         <CarGrid carGrid={carGrid} loading={loading}/>
       </main>
     </>

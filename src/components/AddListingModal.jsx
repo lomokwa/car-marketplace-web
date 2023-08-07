@@ -86,7 +86,6 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
       !yearAsNumber ||
       !priceAsNumber ||
       !mileageAsNumber ||
-      !formattedUrl ||
       !image
     ) {
       alert("Please fill in all fields.");
