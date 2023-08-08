@@ -20,7 +20,7 @@ export default function CarCard({ car }) {
           <div className="mt-4">
             <h3 className="text-gray-700 dark:text-gray-500 text-xs tracking-widest title-font mb-1">{car.year}</h3>
             <h2 className="text-gray-900 dark:text-white title-font text-lg font-medium">{car.make} {car.model}</h2>
-            <p className="mt-1 text-gray-700 dark:text-gray-100 ">${car.price.toLocaleString()} | {car.mileage.toLocaleString()} Miles</p>
+            <p className="mt-1 text-gray-700 dark:text-gray-200 ">${car.price.toLocaleString()} | {car.mileage.toLocaleString()} Miles</p>
           </div>
         </div>
     </>

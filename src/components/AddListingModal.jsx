@@ -45,7 +45,8 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
     
     uploadBytes(imageRef, e.target.files[0])
       .then(() => setImage(imageUrl))
-      .catch(alert);
+      .catch((error) => {
+        console.error("Failed to fetch:", error)});
   };
 
   // Fetch models given make
@@ -59,7 +60,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
         setModelList(data);
         console.log("makeList:", data);
       })
-      .catch(alert);
+      .catch(console.log(err));
   };
 
   function handleSelectedModel(e) {
@@ -79,18 +80,18 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
     const priceAsNumber = parseFloat(price);
     const mileageAsNumber = parseInt(mileage, 10);
 
-    if (
-      !selectedMake ||
-      !selectedModel ||
-      !selectedTransmission ||
-      !yearAsNumber ||
-      !priceAsNumber ||
-      !mileageAsNumber ||
-      !image
-    ) {
-      alert("Please fill in all fields.");
-      return;
-    };
+    // if (
+    //   !selectedMake ||
+    //   !selectedModel ||
+    //   !selectedTransmission ||
+    //   !yearAsNumber ||
+    //   !priceAsNumber ||
+    //   !mileageAsNumber ||
+    //   !image
+    // ) {
+    //   alert("Please fill in all fields.");
+    //   return;
+    // };
 
     const newListing = {         
       uid: user.uid,
@@ -103,6 +104,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
       description: description,
       url: formattedUrl,
       image: image,
+      rating: 0
     };
 
     fetch(`https://car-marketplace-api.web.app/listings/newlisting`, {
@@ -115,7 +117,8 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
         setCarGrid(data);
         setShowListingModal(false);
       })
-      .catch(alert);
+      .catch((error) => {
+        console.error("Failed to fetch:", error)});
   };
  
   return (

@@ -92,14 +92,14 @@ export default function Navbar({ setCarGrid, makeList, queryString, setQueryStri
             <li>
               <a
                 href="/cars"
-                className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                className={`${showSearchDropdown ? "dark:text-white text-gray-900" : "text-blue-700 dark:text-blue-500"} block py-2 pl-3 pr-4 md:p-0 bg-blue-700 rounded md:bg-transparent`}
                 aria-current="page"
               >
                 Cars
               </a>
             </li>
             <li>
-              <a onClick={() => { showSearchDropdown ? setShowSearchDropdown(false) : setShowSearchDropdown(true) }} className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              <a onClick={() => { showSearchDropdown ? setShowSearchDropdown(false) : setShowSearchDropdown(true) }} className={`${showSearchDropdown && "md:text-blue-700 md:p-0 md:dark:text-blue-500"} hover:cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
               >
                 Search
               </a>

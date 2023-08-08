@@ -22,7 +22,8 @@ export default function Home() {
         setMakeList(data);
         console.log("makeList:", data);
       })
-      .catch(alert);
+      .catch((error) => {
+        console.error("Failed to fetch:", error)});
   }, []);
 
   useEffect(() => {

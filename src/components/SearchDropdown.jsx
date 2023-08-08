@@ -33,7 +33,8 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
       .then((data) => {
         setModelList(data);
       })
-      .catch(alert);
+      .catch((error) => {
+        console.error(error); });
       console.log(selectedMakeValue)
   };
 
@@ -116,7 +117,7 @@ export default function SearchDropdown({ makeList, queryString, setQueryString }
               onChange={handleSelectedTransmission}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
-              <option value="" selected>
+              <option value="">
                 Transmission: Any
               </option>
               <option value="Manual">Manual</option>

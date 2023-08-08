@@ -21,6 +21,11 @@ export const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
 
+  const _setUser = () => {
+    sessionStorage.setItem("user", JSON.stringify(data));
+    setUser(data);
+  }
+
   useEffect(() => {
     onAuthStateChanged(auth, (_user) => {
       setUser(_user)
@@ -39,5 +44,5 @@ export function AuthProvider({ children }) {
       })
   };
 
-  return <AuthContext.Provider value={{ user, handleLogin, handleLogout }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, setUser: _setUser, handleLogin, handleLogout }}>{children}</AuthContext.Provider>
 };
