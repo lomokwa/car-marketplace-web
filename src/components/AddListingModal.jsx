@@ -60,7 +60,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
         setModelList(data);
         console.log("makeList:", data);
       })
-      .catch(console.log(err));
+      .catch(error => console.log(error));
   };
 
   function handleSelectedModel(e) {
@@ -145,6 +145,14 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
             <div className="relative p-6 flex-auto text-gray-900">
               <form>
                 <div className="p-2">
+                    <input 
+                      onChange={handleFile} 
+                      type='file' 
+                      accept='image/*' 
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+                <div className="p-2">
                   {/* Make selector */}
                   {makeList.length > 0 ? (
                     <select
@@ -194,6 +202,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
                   )}
                 </div>
                 <div className="p-2">
+
                   <select
                     name="transmission"
                     value={selectedTransmission}
@@ -248,7 +257,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
                     name="description" 
-                    placeholder="Description"   
+                    placeholder="Description (optional)"   
                     className="resize-none h-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                   />
                 </div>
@@ -263,14 +272,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
                 </div>
-                <div className="p-2">
-                  <input 
-                    onChange={handleFile} 
-                    type='file' 
-                    accept='image/*' 
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  />
-                </div>
+                
               </form>
             </div>
 
@@ -284,6 +286,7 @@ export default function AddListingModal({ setShowListingModal, setCarGrid, makeL
                 Close
               </button>
               <button
+                disabled={!file}
                 className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="submit"
                 onClick={handleSubmit}
